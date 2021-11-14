@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+    <title>Document</title>
+    <style>
+        .box{
+            background-color: blue;
+            height: 300px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <button @click="toggleBox">Toggle Box</button>
+        <test-box v-if="isVisible"></test-box>
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        let app = Vue.createApp({
+            data: function(){
+                return {
+                    isVisible: false
+                }
+            },
+            methods:{
+                toggleBox(){
+                    this.isVisible = !this.isVisible
+                }
+            },
+            updated(){
+                console.log("updated")
+            }
+        })
+        app.component('test-box', {
+            template: `
+            <div class="box"></div>
+            `,
+            created(){
+                console.log("created")
+            },
+            mounted(){
+                console.log("mounted")
+            },
+            unmounted(){
+                console.log("unmounted")
+
+            },
+        })
+        app.mount("#app")
+    </script>
+
+</body>
+
+</html>
